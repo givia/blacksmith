@@ -78,7 +78,7 @@ dev: blacksmith docker
 
 production: blacksmith docker		
 
-dependencies: *.go */*.go pxe/pxelinux_autogen.go templating/files_autogen.go web/ui_autogen.go
+dependencies: *.go */*.go pxe/pxelinux_autogen.go templating/files_autogen.go web/ui_autogen.go swagger
 	$(GO) get -v
 	$(GO) list -f=$(FORMAT) $(TARGET) | xargs $(GO) install
 
@@ -135,7 +135,7 @@ gofmt: gofmt.diff
 	@if [ -s $< ]; then echo 'gofmt found errors'; false; fi
 
 swagger:
-	$(GO) get github.com/go-swagger/go-swagger/cmd/swagger
+	$(GO) get -u github.com/go-swagger/go-swagger/cmd/swagger
 	swagger generate server swagger.yaml --target=swagger --exclude-main
 	swagger generate client swagger.yaml --target=swagger
 	$(GO) get ./swagger/...
